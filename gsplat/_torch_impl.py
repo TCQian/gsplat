@@ -325,9 +325,11 @@ def map_gaussian_to_intersects(
     return isect_ids, gaussian_ids
 
 
-def get_tile_bin_edges(num_intersects, isect_ids_sorted):
+def get_tile_bin_edges(num_intersects, isect_ids_sorted, tile_bounds):
+    tile_x, tile_y, tile_z = tile_bounds
+    num_tiles = tile_x * tile_y * tile_z
     tile_bins = torch.zeros(
-        (num_intersects, 2), dtype=torch.int32, device=isect_ids_sorted.device
+        (num_tiles, 2), dtype=torch.int32, device=isect_ids_sorted.device
     )
 
     for idx in range(num_intersects):
